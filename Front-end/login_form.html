@@ -1,0 +1,23 @@
+<html layout:decorate="~{layout}">
+<div layout:fragment="content" class="container">
+	<div class="login_form">
+		<form th:action="@{/user/login}" method="post">
+			<div th:if="${param.error}">
+				<div class="alert alert-danger">
+					사용자ID 또는 비밀번호를 확인해 주세요.
+				</div>
+			</div>
+			<input class="input" type="text" name="id" id="id" size="42" placeholder="아이디" required="required"><br><br>
+			<input class="input" type="password" name="password" id="password" size="42" placeholder="비밀번호"
+				required="required"><br><br>
+			<button type="submit" class="logn_button">로그인</button>
+		</form>
+	</div>
+	<div class="aa" style="margin-top: 20px;">
+		<span><a th:href="@{/user/signup}">회원가입</a></span>
+		<span><a th:href="@{/user/find_Id}">아이디 찾기</a></span>
+		<span><a th:href="@{/user/find_Pw}">비밀번호 찾기</a></span>
+	</div>
+</div>
+
+</html>

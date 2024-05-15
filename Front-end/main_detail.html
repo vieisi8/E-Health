@@ -1,0 +1,248 @@
+<html layout:decorate="~{layout}">
+<div layout:fragment="content" class="container mt-5">
+	<div id="mySidenav" class="sidenav">
+
+		<span class="toggle" onclick="toggleNav()">|</span>
+
+		<div sec:authorize="isAnonymous()" class="sidebar_maxlength">
+			<p style="color: white;">로그인 상태가 아닙니다.<br> 로그인 후 이용 가능합니다.</p>
+		</div>
+
+		<div sec:authorize="isAuthenticated()" class="sidebar_maxlength" style="overflow-y: auto;">
+			<!-- 각 그룹에 대한 반복문 -->
+			<th:block th:each="entry : ${GroupedChatHistory.entrySet()}">
+				<!-- 그룹의 레이블 -->
+				<h5 th:switch="${entry.key}">
+					<h5 th:case="A" th:text="오늘" style="color: white; font-size: 14px;"></h5>
+					<h5 th:case="B" th:text="하루전" style="color: white; font-size: 14px;"></h5>
+					<h5 th:case="C" th:text="이틀전" style="color: white; font-size: 14px;"></h5>
+					<h5 th:case="D" th:text="사흘전" style="color: white; font-size: 14px;"></h5>
+					<h5 th:case="E" th:text="7일동안" style="color: white; font-size: 14px;"></h5>
+					<h5 th:case="Z" th:text="오래전" style="color: white; font-size: 14px;"></h5>
+				</h5>
+
+				<!-- 각 날짜별 코드 그룹에 대한 반복문 -->
+				<th:block th:each="codeEntry : ${entry.value.entrySet()}">
+
+					<th:block th:each="chat, iter : ${codeEntry.value}">
+						<th:block th:if="${iter.index == 0}">
+							<a class="sidebar_a" th:href="@{'/chatbot/' + ${chat.code}}" th:text="${chat.question}"
+								style="font-weight: bold;"></a>
+						</th:block>
+					</th:block>
+				</th:block>
+		</div>
+
+
+	</div>
+
+	<div id="main">
+
+		<p class="text-start"><img src="/Mascot.gif"></p>
+		<div class="card">
+			<div class="card-body">
+				<p class="text-start">
+				<pre class="text-area" style="margin-top: 10px;"><span>저는 웨이트 트레이닝에 관한 정보를 알려드릴 수 있어요!
+오늘의 추천 운동 또는 카테고리에서 원하는 근육을 선택하거나 궁금한 웨이트 트레이닝 운동 이름을 물어보세요!</span></pre>
+				</p>
+			</div>
+		</div>
+
+		<div th:each="chatHistory : ${chatHistoryList}" class="mb-2">
+
+			<div sec:authorize="isAnonymous()">
+				<p class="text-end" style="margin-top: 30px;">Anonymous</p>
+			</div>
+			<div sec:authorize="isAuthenticated()">
+				<P class="text-end" style="margin-top: 30px;" th:text="${name}"></P>
+			</div>
+
+			<div class="card">
+				<div class="card-body">
+					<pre class="text-area text-end"
+						style="margin-top: 10px;"><span th:text="${chatHistory.question}"></span></pre>
+				</div>
+			</div>
+			<br>
+			<br>
+			<p class="text-start"><img src="/Mascot.gif"></p>
+			<div class="card">
+				<div class="card-body">
+					<div th:if="${chatHistory.Image_urls != null}">
+						<div th:each="imageUrl : ${chatHistory.Image_urls}">
+							<p class="text-start" id="a">
+								<img th:src="${imageUrl}" alt="Image" style="width: 1230px;">
+							</p>
+						</div>
+					</div>
+					<p class="text-start">
+					<pre class="text-area"><span th:text="${chatHistory.answer}"></span></pre>
+					</p>
+					<div th:if="${chatHistory.Video_urls != null}">
+						<div th:each="videoUrl : ${chatHistory.Video_urls}">
+							<p class="text-start" id="b">
+								<iframe width="1230" height="691.718" th:src="${videoUrl}" frameborder="0"
+									allowfullscreen></iframe>
+							</p>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+
+
+		<br>
+		<br>
+		<!-- 질문 창 -->
+		<div id="prompt">
+			<div class="col-12">
+				<form method="post" th:action="@{/chatbot}">
+					<div class="relative flex h-full flex-1 flex-col">
+						<div class="absolute bottom-full left-0 right-0"></div>
+						<div class="flex w-full items-center">
+							<div
+								class="overflow-hidden [&amp;:has(textarea:focus)]:border-token-border-xheavy [&amp;:has(textarea:focus)]:shadow-[0_2px_6px_rgba(0,0,0,.05)] flex flex-col w-full flex-grow relative border dark:text-white rounded-2xl bg-token-main-surface-primary border-token-border-medium" style="background-color: rgb(255, 255, 255);">
+								<textarea id="prompt-textarea" name="Question" tabindex="0"
+									data-id="162801c1-bd4e-4abc-b8dc-9738ddae7979" dir="auto" rows="1"
+									placeholder="궁금하신 것이 있으시면 언제든지 물어보세요"
+									class="m-0 w-full resize-none border-0 bg-transparent focus:ring-0 focus-visible:ring-0 dark:bg-transparent py-[10px] pr-10 md:py-3.5 md:pr-12 max-h-[25dvh] max-h-52 placeholder-black/50 dark:placeholder-white/50 pl-3 md:pl-4"
+									style="height: 44px; overflow-y: hidden;"></textarea><button
+									class="absolute bottom-1.5 right-2 rounded-lg border border-black bg-black p-0.5 text-white transition-colors enabled:bg-black disabled:text-gray-400 disabled:opacity-10 dark:border-white dark:bg-white dark:hover:bg-white md:bottom-3 md:right-3"
+									data-testid="send-button" disabled=""><span class="" data-state="closed"><svg
+											width="24" height="24" viewBox="0 0 24 24" fill="none"
+											class="text-white dark:text-black">
+											<path d="M7 11L12 6L17 11M12 18V7" stroke="currentColor" stroke-width="2"
+												stroke-linecap="round" stroke-linejoin="round">
+											</path>
+										</svg></span></button>
+							</div>
+						</div>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+
+	<div class="loading" id="loading">
+		<img src="/loading.gif" alt="loading">
+		<P>열심히 찾고 있습니다... 잠시 기다려주세요!</P>
+	</div>
+</div>
+
+<script layout:fragment="script" type="text/javascript">
+
+	window.onload = function () {
+		openNav();
+
+		$('#loading').hide();
+		$('form').submit(function () {
+			$('#navbar, #mySidenav, #main').hide();
+			$('#loading').show();
+		});
+
+		const textarea = document.getElementById('prompt-textarea');
+		const sendButton = document.querySelector('[data-testid="send-button"]');
+
+		// 텍스트 입력 상태 감지
+		textarea.addEventListener('input', function () {
+			// 입력된 텍스트가 있는지 확인하여 버튼을 활성화 또는 비활성화
+			sendButton.disabled = this.value.trim().length === 0;
+		});
+
+		// 엔터 키를 누를 때 버튼 클릭
+		textarea.addEventListener('keydown', function (event) {
+			// 엔터 키인지 확인
+			if (event.key === 'Enter') {
+				// 기본 이벤트(새 줄 생성) 방지
+				event.preventDefault();
+				// 버튼을 클릭하여 form 태그 작동
+				sendButton.click();
+			}
+		});
+	}
+
+	function toggleNav() {
+		const sidenav = document.getElementById("mySidenav");
+		const isOpen = sidenav.style.width === "250px";
+		const toggle = document.querySelector(".toggle");
+
+		if (isOpen) {
+			closeNav();
+			toggle.classList.add("closed");
+		} else {
+			openNav();
+			toggle.classList.remove("closed");
+		}
+
+		updateToggleIcon();
+	}
+
+	function openNav() {
+		document.getElementById("mySidenav").style.width = "250px";
+		document.getElementById("main").style.marginLeft = "250px";
+		adjustContentWidth(true);
+
+		var fullWidthElements = document.querySelectorAll('.w-full');
+
+		// 각 요소에 대해 반복하면서 스타일을 변경합니다.
+		fullWidthElements.forEach(function (element) {
+			element.style.width = "740px"; // 원하는 너비로 변경합니다.
+		});
+	}
+
+	function closeNav() {
+		document.getElementById("mySidenav").style.width = "0";
+		document.getElementById("main").style.marginLeft = "0";
+		adjustContentWidth(false);
+
+		var fullWidthElements = document.querySelectorAll('.w-full');
+
+		// 각 요소에 대해 반복하면서 스타일을 변경합니다.
+		fullWidthElements.forEach(function (element) {
+			element.style.width = "985px"; // 원하는 너비로 변경합니다.
+		});
+	}
+
+
+	function adjustContentWidth(adjust) {
+		var contentElements = document.querySelectorAll('.card img, .card iframe');
+
+		contentElements.forEach(function (element) {
+			if (adjust) {
+				element.style.maxWidth = 'calc(100% - 5px)';
+
+			} else {
+				element.style.maxWidth = 'none'; // 기본 크기 유지
+			}
+		});
+	}
+
+	function updateToggleIcon() {
+		const toggle = document.querySelector(".toggle");
+		const sidenav = document.getElementById("mySidenav");
+		const isOpen = sidenav.style.width === "250px";
+
+		toggle.textContent = isOpen ? "|" : ">"; // 토글 모양 변경
+	}
+
+	// 마우스를 가져다 대었을 때 이벤트 처리
+	const toggle = document.querySelector(".toggle");
+	toggle.addEventListener("mouseover", function () {
+		const sidenav = document.getElementById("mySidenav");
+		const isOpen = sidenav.style.width === "250px";
+
+		if (!isOpen) {
+			this.textContent = ">"; // '>'로 고정
+		} else {
+			this.textContent = "<"; // '<'로 변경
+		}
+	});
+
+	// 마우스를 벗어났을 때 이벤트 처리
+	toggle.addEventListener("mouseout", function () {
+		updateToggleIcon(); // 토글 모양 업데이트
+	});
+</script>
+
+</html>

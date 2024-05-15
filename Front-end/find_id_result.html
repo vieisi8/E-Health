@@ -1,0 +1,27 @@
+<html layout:decorate="~{layout}">
+<div layout:fragment="content" class="container">
+	<form th:action="@{/user/find_Id}" method="post">
+		<div class="result_form">
+			<div th:if="${result != '사용자를 찾을수 없습니다.'}">
+				<h2 class="main">당신의 아이디</h2>
+			</div>
+			<br>
+
+			<h1 class="main"><span th:text="${result}"></span></h1>
+			<br>
+		</div>
+	</form>
+	<div th:if="${result != '사용자를 찾을수 없습니다.'}">
+		<div class="result_aa" style="margin-top: 20px;">
+			<span><a th:href="@{/user/find_Pw}">비밀번호 찾기</a></span>
+			<span><a href="/user/login">로그인 화면으로 이동</a></span>
+		</div>
+	</div>
+	<div th:if="${result == '사용자를 찾을수 없습니다.'}">
+		<div class="result2_aa" style="margin-top: 20px;">
+			<a href="javascript:history.back()">뒤로 가기</a>
+		</div>
+	</div>
+</div>
+
+</html>

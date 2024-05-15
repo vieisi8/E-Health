@@ -1,0 +1,36 @@
+<html layout:decorate="~{layout}">
+<div layout:fragment="content" class="container">
+	<h2 class="main">
+		<회원가입>
+			</h2class>
+			<form th:action="@{/user/signup}" th:object="${userCreateForm}" method="post">
+				<div th:replace="~{form_errors :: formErrorsFragment}"></div>
+				<div class="main">
+					<p for="id" class="p">사용자ID</p>
+					<input type="text" name="id" th:field="*{id}" class="sinup_input">
+				</div>
+				<div class="main">
+					<p for="password1" class="p">비밀번호</p>
+					<input type="password" th:field="*{password1}" class="sinup_input">
+				</div>
+				<div class="main">
+					<p for="password2" class="p">비밀번호 확인</p>
+					<input type="password" th:field="*{password2}" class="sinup_input">
+				</div>
+				<div class="main">
+					<p for="name" class="p">이름</p>
+					<input type="text" th:field="*{name}" class="sinup_input">
+				</div>
+				<div class="main">
+					<p for="address" class="p">주소</p>
+					<input type="text" th:field="*{address}" class="sinup_input">
+				</div>
+				<div class="main">
+					<p for="DOB" class="p">생년월일</p>
+					<input type="date" th:field="*{DOB}" class="sinup_input">
+				</div>
+				<button type="submit" class="signup_button">회원가입</button>
+			</form>
+</div>
+
+</html>

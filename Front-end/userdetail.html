@@ -1,0 +1,39 @@
+<html layout:decorate="~{layout}">
+<div layout:fragment="content" class="container">
+	<div class="userdetail_form">
+		<h4 class="main">당신의 회원정보</h4>
+		<br>
+
+		<label th:for="id">아이디</label>
+		<input type="text" th:value="${user.id}" class="form-control" style="width:305px;" disabled>
+		<br>
+
+		<form th:action="@{/user/change_pw}" method="get">
+			<button style="margin-left: 136px; width:305px;">비밀번호 재설정</button>
+		</form>
+		<br>
+		<form th:action="@{/user/change_name}" th:object="${changeNameForm}" method="post">
+			<div th:replace="~{form_errors :: formErrorsFragment}"></div>
+			<label for="name">이름</label>
+			<div class="d-inline-flex">
+				<input type="text" th:field="${user.name}" class="form-control" style="width:250px;">
+				<button type="submit" style="margin-top: 4px; margin-left: 10px; height: 28px;">수정</button>
+			</div>
+		</form>
+		<br>
+		<br>
+
+		<form th:action="@{/user/change_DOB}" th:object="${changeDOBForm}" method="post">
+			<div th:replace="~{form_errors :: formErrorsFragment}"></div>
+			<label th:for="DOB">생년월일</label>
+			<div class="d-inline-flex">
+				<input type="date" th:field="${user.DOB}" class="form-control" style="width:250px;">
+				<button type="submit" style="margin-top: 4px; margin-left: 10px; height: 28px;">수정</button>
+			</div>
+		</form>
+
+	</div>
+
+</div>
+
+</html>

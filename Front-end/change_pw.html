@@ -1,0 +1,20 @@
+<html layout:decorate="~{layout}">
+<div layout:fragment="content" class="container">
+	<h2 class="main">
+		<비밀번호 재설정>
+	</h2>
+	<form th:action="@{/user/change_pw}" th:object="${changePWForm}" method="post">
+		<div th:replace="~{form_errors :: formErrorsFragment}"></div>
+		<div class="main">
+			<p for="password1" class="p">비밀번호</p>
+			<input type="password" th:field="*{password1}" class="sinup_input">
+		</div>
+		<div class="main">
+			<p for="password2" class="p">비밀번호 확인</p>
+			<input type="password" th:field="*{password2}" class="sinup_input">
+		</div>
+		<button type="submit" class="signup_button" style="margin-left: 275px;">비밀번호 재설정</button>
+	</form>
+</div>
+
+</html>

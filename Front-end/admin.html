@@ -1,0 +1,56 @@
+<html layout:decorate="~{layout}">
+<div layout:fragment="content" class="container">
+
+	<button class="nav_btn" style="position: absolute; top: 100px; left: 400px;" onclick="toggleContent('process')">Chatbot processing process</button>
+    <button class="nav_btn" style="position: absolute; top: 100px; right: 400px;" onclick="toggleContent('error')">Error Catch</button>
+    
+    <div id="processContent" class="hidden" style="margin-top: 100px;">
+        <h5>Chatbot processing process</h5>
+        <ul>
+            <li th:each="innerList : ${process}">
+                <div class="card" style="margin-bottom: 30px;">
+                    <ol>
+                        <li th:each="item : ${innerList}">
+                            <div class="card">
+                                <div class="card-body">
+                                    <pre class="text-area"><span th:text="${item}"></span></pre>
+                                </div>
+                            </div>
+                        </li>
+                    </ol>
+                </div>
+            </li>
+        </ul>
+    </div>
+    
+    <div id="errorContent" class="hidden" style="margin-top: 100px;">
+        <h5>Error Catch</h5>
+        <ul>
+            <li th:each="innerList : ${error}">
+                <ul>
+                    <li th:each="item : ${innerList}">
+                        <pre class="text-area"><span th:text="${item}"></span></pre>
+                        <!-- 필요에 따라 추가 속성을 출력할 수 있습니다. -->
+                    </li>
+                </ul>
+            </li>
+        </ul>
+    </div>
+</div>
+
+<script layout:fragment="script" type="text/javascript">
+	function toggleContent(type) {
+            var processContent = document.getElementById("processContent");
+            var errorContent = document.getElementById("errorContent");
+            
+            if (type === 'process') {
+                processContent.classList.remove("hidden");
+                errorContent.classList.add("hidden");
+            } else if (type === 'error') {
+                processContent.classList.add("hidden");
+                errorContent.classList.remove("hidden");
+            }
+        }
+</script>
+
+</html>

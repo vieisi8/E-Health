@@ -1,0 +1,326 @@
+<html layout:decorate="~{layout}">
+<div layout:fragment="content" class="container mt-5">
+	<div id="mySidenav" class="sidenav">
+
+		<span class="toggle" onclick="toggleNav()"></span>
+
+		<div sec:authorize="isAnonymous()" class="sidebar_maxlength">
+			<p style="color: white;">로그인 상태가 아닙니다.<br> 로그인 후 이용 가능합니다.</p>
+		</div>
+
+		<div sec:authorize="isAuthenticated()" class="sidebar_maxlength" style="overflow-y: auto;">
+			<!-- 각 그룹에 대한 반복문 -->
+			<th:block th:each="entry : ${GroupedChatHistory.entrySet()}">
+				<!-- 그룹의 레이블 -->
+				<h5 th:switch="${entry.key}">
+					<h5 th:case="A" th:text="오늘" style="color: white; font-size: 14px;"></h5>
+					<h5 th:case="B" th:text="하루전" style="color: white; font-size: 14px;"></h5>
+					<h5 th:case="C" th:text="이틀전" style="color: white; font-size: 14px;"></h5>
+					<h5 th:case="D" th:text="사흘전" style="color: white; font-size: 14px;"></h5>
+					<h5 th:case="E" th:text="7일동안" style="color: white; font-size: 14px;"></h5>
+					<h5 th:case="Z" th:text="오래전" style="color: white; font-size: 14px;"></h5>
+				</h5>
+
+				<!-- 각 날짜별 코드 그룹에 대한 반복문 -->
+				<th:block th:each="codeEntry : ${entry.value.entrySet()}">
+
+					<th:block th:each="chat, iter : ${codeEntry.value}">
+						<th:block th:if="${iter.index == 0}">
+							<a class="sidebar_a" th:href="@{'/chatbot/' + ${chat.code}}" th:text="${chat.question}"
+								style="font-weight: bold;"></a>
+						</th:block>
+					</th:block>
+				</th:block>
+		</div>
+	</div>
+
+	<div id="main">
+
+		<div id="C BUM VS RAMON DINO">
+			<img src="/C BUM.png" alt="title" style="height: 630px; position: fixed;">
+			<img src="/RAMON DINO.png" alt="title" style="height: 630px; margin-left: 920px; position: fixed;">
+		</div>
+
+		<div id="start-container" class="start" style="margin: 0 auto;">
+			<img src="/title1.png" alt="title" style="height: 200px;">
+			<br>
+			<button class="btn" id="start-button" onclick="showChat()" style="margin-top: 50px;">Start</button>
+
+
+			<div id="popup-container">
+				<div class="popup-content">
+					<span class="close">&times;</span>
+					<h3>공지</h3>
+					<p>저희 E-Health를 찾아주셔서 감사합니다.<br>
+						혹시 처음 방문 하신다면 <strong><a th:href="@{/guide}">사이드 이용 방법</a></strong>을 클릭하셔서 사용 방법을 익혀보세요!<br>
+						모두들 득근득근 👍
+					</p>
+					<div class="today-close">
+						<button id="modal-today-close"
+							style="border: none; background: none; padding: 0; margin: 0; cursor: pointer;">
+							오늘 하루 더 이상 보지않기</button>
+					</div>
+				</div>
+			</div>
+
+			<h7 style="display: flex; margin-top: 230px; margin-left: 410px;">E-Health는 AI와 고급 데이터베이스를 활용한 웨이트 트레이닝 기초
+				챗봇입니다.<br>
+				함께 건강한 라이프 스타일을 위한 지식을 탐색해보세요!!</h7>
+
+		</div>
+
+		<div id="chat-container" style="display:none;">
+
+			<p class="text-start"><img src="/Mascot.gif"></p>
+			<div class="card">
+				<div class="card-body">
+					<p class="text-start">
+					<pre class="text-area" style="margin-top: 10px;"><span>저는 웨이트 트레이닝에 관한 정보를 알려드릴 수 있어요!
+오늘의 추천 운동 또는 카테고리에서 원하는 근육을 선택하거나 궁금한 웨이트 트레이닝 운동 이름을 물어보세요!</span></pre>
+					</p>
+				</div>
+			</div>
+
+			<h4 th:text="${'오늘은 '+tag+'운동해 보길 바라요! 밑에 추천 운동들을 참고해보세요!!'}" style="margin-top: 20px;"></h4>
+			<div class="recommended_exercise">
+				<ul>
+					<li th:each="exercise : ${recommended_exercise}">
+						<form th:action="@{/chatbot}" method="post">
+							<input type="hidden" name="Question" th:value="${exercise.name+'에 대해 자세히 알고싶어'}" />
+							<button type="submit"
+								th:utext="${exercise.type + '을 자극할 수 있는 <strong>' + exercise.name + '</strong> 해보는게 어때요?'}"
+								style="border: none; background: none; padding: 0; margin: 0; cursor: pointer;">Submit</button>
+						</form>
+
+					</li>
+				</ul>
+
+			</div>
+
+			<h4 style="margin-top: 20px;">근육별 카테고리</h4>
+			<div class="muscle" style="margin-bottom: 50px;">
+				<div class="muscle-list">
+					<th:block th:each="entry : ${Muscle_Categories.entrySet()}">
+						<div class="muscle-item" th:text="${entry.key}"></div>
+						<div class="muscle-details">
+							<ul>
+								<th:block th:each="muscle : ${entry.value}">
+									<li>
+										<form th:action="@{/chatbot}" method="post">
+											<input type="hidden" name="Question" th:value="${muscle + '운동 추천해줘'}" />
+											<button type="submit"
+												style="border: none; background: none; padding: 0; margin: 0; cursor: pointer;">
+												<strong th:text="${muscle}"></strong>
+											</button>
+										</form>
+									</li>
+								</th:block>
+							</ul>
+						</div>
+					</th:block>
+				</div>
+			</div>
+
+
+
+			<!-- 질문 창 -->
+			<div id="prompt">
+				<div class="col-12">
+					<form method="post" th:action="@{/chatbot}">
+						<div class="relative flex h-full flex-1 flex-col">
+							<div class="absolute bottom-full left-0 right-0"></div>
+							<div class="flex w-full items-center">
+								<div
+									class="overflow-hidden [&amp;:has(textarea:focus)]:border-token-border-xheavy [&amp;:has(textarea:focus)]:shadow-[0_2px_6px_rgba(0,0,0,.05)] flex flex-col w-full flex-grow relative border dark:text-white rounded-2xl bg-token-main-surface-primary border-token-border-medium" style="background-color: rgb(255, 255, 255);">
+									<textarea id="prompt-textarea" name="Question" tabindex="0"
+										data-id="162801c1-bd4e-4abc-b8dc-9738ddae7979" dir="auto" rows="1"
+										placeholder="궁금하신 것이 있으시면 언제든지 물어보세요"
+										class="m-0 w-full resize-none border-0 bg-transparent focus:ring-0 focus-visible:ring-0 dark:bg-transparent py-[10px] pr-10 md:py-3.5 md:pr-12 max-h-[25dvh] max-h-52 placeholder-black/50 dark:placeholder-white/50 pl-3 md:pl-4"
+										style="height: 44px; overflow-y: hidden;"></textarea><button
+										class="absolute bottom-1.5 right-2 rounded-lg border border-black bg-black p-0.5 text-white transition-colors enabled:bg-black disabled:text-gray-400 disabled:opacity-10 dark:border-white dark:bg-white dark:hover:bg-white md:bottom-3 md:right-3"
+										data-testid="send-button" disabled=""><span class="" data-state="closed"><svg
+												width="24" height="24" viewBox="0 0 24 24" fill="none"
+												class="text-white dark:text-black">
+												<path d="M7 11L12 6L17 11M12 18V7" stroke="currentColor"
+													stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+												</path>
+											</svg></span></button>
+								</div>
+							</div>
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+		<!-- 기본 템플릿 안에 삽입될 내용 End -->
+	</div>
+
+	<div class="loading" id="loading">
+		<img src="/loading.gif" alt="loading">
+		<P>열심히 찾고 있습니다... 잠시 기다려주세요!</P>
+	</div>
+</div>
+
+<script layout:fragment="script" type="text/javascript">
+
+	window.onload = function () {
+		const muscleItems = document.querySelectorAll('.muscle-item');
+		muscleItems.forEach(item => {
+			item.addEventListener('click', function () {
+				const details = this.nextElementSibling;
+				details.classList.toggle('active');
+			});
+		});
+
+		const textarea = document.getElementById('prompt-textarea');
+		const sendButton = document.querySelector('[data-testid="send-button"]');
+
+		// 텍스트 입력 상태 감지
+		textarea.addEventListener('input', function () {
+			// 입력된 텍스트가 있는지 확인하여 버튼을 활성화 또는 비활성화
+			sendButton.disabled = this.value.trim().length === 0;
+		});
+
+		// 엔터 키를 누를 때 버튼 클릭
+		textarea.addEventListener('keydown', function (event) {
+			// 엔터 키인지 확인
+			if (event.key === 'Enter') {
+				// 기본 이벤트(새 줄 생성) 방지
+				event.preventDefault();
+				// 버튼을 클릭하여 form 태그 작동
+				sendButton.click();
+			}
+		});
+	}
+
+	document.addEventListener("DOMContentLoaded", function () {
+
+		var popupContainer = document.getElementById("popup-container");
+		var modalTodayClose = document.getElementById("modal-today-close");
+
+		// 쿠키 확인하여 팝업 노출 여부 결정
+		var checkCookie = getCookie("popupEnd");
+		if (checkCookie == "true") {
+			popupContainer.style.display = "none";
+		}
+
+		// 닫기 버튼 클릭 시 팝업 닫기
+		document.querySelector(".close").addEventListener("click", function () {
+			popupContainer.style.display = "none";
+		});
+
+		// 오늘 하루 더 이상 보지 않기 버튼 클릭 시 쿠키 설정 및 팝업 닫기
+		modalTodayClose.addEventListener("click", function () {
+			setCookie("popupEnd", "true", 1);
+			popupContainer.style.display = "none";
+		});
+
+		// 쿠키 설정 함수
+		function setCookie(name, value, expiredays) {
+			var today = new Date();
+			today.setDate(today.getDate() + expiredays);
+			document.cookie = name + "=" + escape(value) + "; expires=" + today.toGMTString();
+		}
+
+		// 쿠키 가져오기 함수
+		function getCookie(name) {
+			var cookie = document.cookie;
+			if (document.cookie !== "") {
+				var cookieArray = cookie.split("; ");
+				for (var index in cookieArray) {
+					var cookieName = cookieArray[index].split("=");
+					if (cookieName[0] === name) {
+						return cookieName[1];
+					}
+				}
+			}
+			return;
+		}
+	});
+
+	function showChat() {
+		const toggle = document.querySelector(".toggle");
+		$('#start-container').hide();
+		$('#chat-container').show();
+		openNav();
+		toggle.textContent = "|";
+
+		// 이미지 숨기기
+		const imgElement = document.getElementById("C BUM VS RAMON DINO");
+		imgElement.style.display = "none";
+
+		$('#loading').hide();
+		$('form').submit(function () {
+			$('#navbar, #mySidenav, #main').hide();
+			$('#loading').show();
+		});
+	}
+
+	function toggleNav() {
+		const sidenav = document.getElementById("mySidenav");
+		const isOpen = sidenav.style.width === "250px";
+		const toggle = document.querySelector(".toggle");
+
+		if (isOpen) {
+			closeNav();
+			toggle.classList.add("closed");
+		} else {
+			openNav();
+			toggle.classList.remove("closed");
+		}
+
+		updateToggleIcon();
+	}
+
+	function openNav() {
+		document.getElementById("mySidenav").style.width = "250px";
+		document.getElementById("main").style.marginLeft = "250px";
+
+		var fullWidthElements = document.querySelectorAll('.w-full');
+
+		// 각 요소에 대해 반복하면서 스타일을 변경합니다.
+		fullWidthElements.forEach(function (element) {
+			element.style.width = "740px"; // 원하는 너비로 변경합니다.
+		});
+	}
+
+	function closeNav() {
+		document.getElementById("mySidenav").style.width = "0";
+		document.getElementById("main").style.marginLeft = "0";
+
+		var fullWidthElements = document.querySelectorAll('.w-full');
+
+		// 각 요소에 대해 반복하면서 스타일을 변경합니다.
+		fullWidthElements.forEach(function (element) {
+			element.style.width = "985px"; // 원하는 너비로 변경합니다.
+		});
+	}
+
+	function updateToggleIcon() {
+		const toggle = document.querySelector(".toggle");
+		const sidenav = document.getElementById("mySidenav");
+		const isOpen = sidenav.style.width === "250px";
+
+		toggle.textContent = isOpen ? "|" : ">"; // 토글 모양 변경
+	}
+
+	// 마우스를 가져다 대었을 때 이벤트 처리
+	const toggle = document.querySelector(".toggle");
+	toggle.addEventListener("mouseover", function () {
+		const sidenav = document.getElementById("mySidenav");
+		const isOpen = sidenav.style.width === "250px";
+
+		if (!isOpen) {
+			this.textContent = ">"; // '>'로 고정
+		} else {
+			this.textContent = "<"; // '<'로 변경
+		}
+	});
+
+	// 마우스를 벗어났을 때 이벤트 처리
+	toggle.addEventListener("mouseout", function () {
+		updateToggleIcon(); // 토글 모양 업데이트
+	});
+</script>
+
+</html>

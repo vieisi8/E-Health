@@ -1,0 +1,18 @@
+<html layout:decorate="~{layout}">
+<div layout:fragment="content" class="container">
+	<form th:action="@{/user/find_Pw}" method="post">
+		<div class="find_form">
+			<h2 class=" main">
+			<비밀번호 재발급>
+				</h2>
+				<br>
+				<input type="text" name="id" id="id" placeholder="아이디" class="input">
+				<input type="text" name="name" id="name" placeholder="이름" class="input">
+				<input type="text" name="DOB" id="DOB" placeholder="생년월일 ex) 0000-00-00" class="input">
+				<button type="submit" class="find_pw_button">임시 비밀번호 발급</button>
+				<br><br>
+		</div>
+	</form>
+</div>
+
+</html>

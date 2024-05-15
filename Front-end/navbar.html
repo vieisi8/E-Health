@@ -1,0 +1,23 @@
+<nav th:fragment="navbarFragment" class="fixed-top">
+	<header id="navbar">
+		<a href="/"><img src="/logo1.png" alt="logo" style="width: 100px;"></a>
+		<div>
+			<th:block sec:authorize="isAnonymous()">
+				<a th:href="@{/guide}" style="margin-right: 20px;" class="nav_btn">사이트 이용 방법</a>
+				<a th:href="@{/user/login}" style="margin-right: 20px;" class="nav_btn">로그인</a>
+				<a th:href="@{/user/signup}" style="margin-right: 10px;" class="nav_btn">회원가입</a>
+			</th:block>
+
+			<th:block sec:authorize="isAuthenticated()">
+				<a th:href="@{/guide}" style="margin-right: 20px;" class="nav_btn">사이트 이용 방법</a>
+				<a th:href="@{/user/userdetail}" style="margin-right: 20px;" class="nav_btn">내정보</a>
+				<a th:href="@{/user/logout}" style="margin-right: 10px;" class="nav_btn">로그아웃</a>
+				<div style="width: 380px;">
+					<h6 class="sidebar_a" style="margin-top: 20px; margin-left:190px; font-size: 20px;"><span th:text="${name}"></span>님 환영합니다!</h6>
+				</div>
+			</th:block>
+
+
+		</div>
+	</header>
+</nav>
