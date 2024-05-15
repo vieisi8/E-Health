@@ -690,8 +690,8 @@ def Check_Expected_Question(input_value, array):
 
 # 프롬프트 엔지니어링
 system_instruction4=f'''
-
 너는 질문이 {Expected_Question}와 뉘앙스가 비슷한지 아닌지 판단해서 맞으면 T 아니면 F를 반환해
+/ 질문이 웨이트 관련된 질문 일때도 T를 반환해
 / '심혈관 운동의 종류와 이점은 무엇인가요?'는 T 반환
 / '정기적인 운동이 심리적 안녕에 미치는 영향은 무엇인가요?'는 T 반환
 / 반환값은 T, F만 가능'''
