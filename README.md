@@ -50,12 +50,12 @@ Python 패키지인 <strong>Selenium</strong>을 이용해 위 사이트에서 �
 ### 협업 및 진척 관리
 WBS를 작성하여 각 팀원의 할 일을 지정, 매주 회의를 통한 진척 관리를 했습니다.
 
-> [WBS](프로젝트 관리/WBS.xlsx) [WBS](https://github.com/vieisi8/E-Health/blob/main/%ED%94%84%EB%A1%9C%EC%A0%9D%ED%8A%B8%20%EA%B4%80%EB%A6%AC/WBS.xlsx)파일을 참조 해주세요!
+> [WBS](https://github.com/vieisi8/E-Health/blob/main/%ED%94%84%EB%A1%9C%EC%A0%9D%ED%8A%B8%20%EA%B4%80%EB%A6%AC/WBS.xlsx)파일을 참조 해주세요!
 
 ### 품질 관리
 종합 테스트 시나리오서를 작성하여 품질 관리를 했습니다.
 
-> 종합 테스트 시나리오서 파일을 참조 해주세요!
+> [종합 테스트 시나리오서](https://github.com/vieisi8/E-Health/blob/main/%ED%94%84%EB%A1%9C%EC%A0%9D%ED%8A%B8%20%EA%B4%80%EB%A6%AC/%EC%A2%85%ED%95%A9%ED%85%8C%EC%8A%A4%ED%8A%B8%20%EC%8B%9C%EB%82%98%EB%A6%AC%EC%98%A4.xlsx) 파일을 참조 해주세요!
 
 # 프로젝트 기여
 저는 팀장으로서 프로젝트를 이끄는 역할을 하였습니다.
