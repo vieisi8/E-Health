@@ -39,7 +39,7 @@ Python 패키지인 <strong>Selenium</strong>을 이용해 위 사이트에서 �
 
 ### 핵심 기술
 이 프로젝트에서의 핵심 기술은 OPEN AI 사의 GPT를 프롬프트 엔지니어링 방법을 이용해 <strong>사용자의 질문을 DB에 접근할 수 있는 SQL 문으로 변환</strong>하는 기술입니다.<br>
-즉, <strong>프롬프트 엔지니어링을 통해 LLM을 SQL 특화</strong> 시켰다고 볼 수 있습니다.
+즉, <strong>프롬프트 엔지니어링을 통해 LLM을 SQL 특화</strong> 했다고 볼 수 있습니다.
 
 
 # 프로젝트 관리
