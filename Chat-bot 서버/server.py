@@ -725,8 +725,7 @@ def get_data():
     cursor = conn.cursor()
     
     process=[]
-    error=[]
-    error_causes=[]
+    error=[]  
 
     # 전달된 JSON 데이터 받기
     data = request.get_json()
@@ -741,7 +740,7 @@ def get_data():
     tag_appraiser.append({"role": "user", "content": question})
     tag = GPT(tag_appraiser,8)
 
-    process.append(tag)
+    process.append(f'태그: {tag}')
 
     # 태그가 운동일 경우
     if(tag=='exercise'):
@@ -827,12 +826,12 @@ def get_data():
             for i in range(2):
                 sql_translator.pop()
             
-            error_causes.append(f'{e}')
             answer=f'''정보를 찾을 수 없습니다.
 다시 한번 질문 부탁드려요!'''
             process.append(answer)
-            error.append(answer)
-            error.append(error_causes)
+            error.append(f'질문: {question}')
+            error.append(f'원인: {e}')
+            error.append(f'답변: {answer}')
             Error.append(error)
 
             response = {
@@ -854,12 +853,16 @@ def get_data():
 
         # 질문이 웨이트 트레이닝 관련한 질문인지 판단
         TorF = GPT(else_write,8)
+
+        process.append(f'웨이트 관련 질문인가? {TorF}')
         
         # 웨이트 트레이닝 관련한 질문이 맞다면
         if(TorF=='T'):
 
             # 예상 질문에 있는지 확인
             result = Check_Expected_Question(question, Expected_Question)
+
+            process.append(f'예상 질문에 존재 하는가? {result}')
 
             # 예상 질문에 존재 할 경우
             if(result==True):
@@ -888,6 +891,11 @@ def get_data():
                 process.append(answer)
                 Process.append(process)
 
+                error.append(f'질문: {question}')
+                error.append(f'원인: 예상 질문에 존재 하는가? {result}')
+                error.append(f'답변: {answer}')
+                Error.append(error)
+
                 response = {
                     'Answer': answer,
                     'Image_url':None,
@@ -903,6 +911,11 @@ def get_data():
 
             process.append(answer)
             Process.append(process)
+
+            error.append(f'질문: {question}')
+            error.append(f'원인: 웨이트 관련 질문인가? {TorF}')
+            error.append(f'답변: {answer}')
+            Error.append(error)
 
             response = {
                 'Answer': answer,
