@@ -41,6 +41,26 @@ Python 패키지인 <strong>Selenium</strong>을 이용해 위 사이트에서 �
 이 프로젝트에서의 핵심 기술은 OPEN AI 사의 GPT를 프롬프트 엔지니어링 방법을 이용해 <strong>사용자의 질문을 DB에 접근할 수 있는 SQL 문으로 변환</strong>하는 기술입니다.<br>
 즉, <strong>프롬프트 엔지니어링을 통해 LLM을 SQL 특화</strong> 했다고 볼 수 있습니다.
 
+### E-Health 시연
+
+  - 질문 ▶ 예상 질문 👌
+
+https://github.com/user-attachments/assets/5addd5e6-7568-4a59-9d29-8b8a704fe69a
+
+  - 질문 ▶ 예상 질문 ❌
+
+https://github.com/user-attachments/assets/d37873a2-f5a7-4792-9b71-8cc93b9a01a0
+
+  - 질문 ▶ 웨이트 관련 질문 ❌
+
+https://github.com/user-attachments/assets/d9a1f962-b841-4cee-98d1-cd3e3bebd5cc
+
+
+
+
+
+
+
 
 # 프로젝트 관리
 
