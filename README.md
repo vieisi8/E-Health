@@ -39,7 +39,7 @@
 ## 프로젝트 기여
   - 팀장으로서 프로젝트를 이끄는 역할 수행
   - 저는 주로 <strong>클라이언트 Back-end</strong> 맡아 개발 진행.
-  - 백업을 위해 <strong> 제가 맡지 않은 파트</strong> 도 단위 테스트가 가능한 수준의 <strong>프로토타입을 개발</strong> 진행.
+  - 백업을 위해 <strong> 제가 맡지 않은 파트(Front-End, Chat-bot 서버)</strong> 도 단위 테스트가 가능한 수준의 <strong>프로토타입을 개발</strong> 진행.
 
 
 ## 주요 기능
