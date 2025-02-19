@@ -1,7 +1,7 @@
 # E-Health
 ![E-Health 메인 화면](https://github.com/vieisi8/E-Health/assets/146730344/b1ded5be-779d-4205-a93c-d979e492b6a9)
 캡스톤디자인에서 진행 한 졸업 작품.<br>
-본 프로젝트는 <strong>웨이트 초보자가 더욱 쉽고 직관적인 운동 데이터를 통해 부상을 미리 방지하자는 취지</strong>가 담겨 있음<br>
+본 프로젝트는 <strong>웨이트 초보자가 더욱 쉽고 직관적인 운동 데이터를 통해 부상을 미리 방지하자는 취지</strong>가 담겨 있음.<br>
 저를 포함한 4명이 팀을 꾸려 약 8개월가량 개발 진행. (23.09 ~ 24.04)<br>
 [![image](https://github.com/vieisi8/E-Health/assets/146730344/f5ad5be3-1c4e-4231-aac6-429d8d91e0c3)](http://54.180.219.227:8080/) => 저희 사이트는 현재 비활성화 상태임을 알림.
 
